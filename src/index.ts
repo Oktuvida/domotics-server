@@ -16,6 +16,7 @@ const PROJECTOR = new Component(24, "low");
 
 const PORT = Number(process.env.PORT) || 3000;
 const server = new Server(PORT);
+console.log(`SERVER IS RUNNING ON PORT ${PORT}`);
 
 const changeMessageHandler = (message: IncomingMessage) => {
   switch (message.endpoint) {

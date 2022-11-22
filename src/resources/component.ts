@@ -1,4 +1,4 @@
-import { type Direction, type Edge, BinaryValue, Gpio, Options} from "onoff";
+import { type Direction, type Edge, BinaryValue, Gpio, Options } from "onoff";
 
 export type ComponentOptions = Options;
 
