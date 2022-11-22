@@ -50,6 +50,31 @@ const changeMessageHandler = (message: IncomingMessage) => {
   }
 };
 
+const getMessageHandler = (message: IncomingMessage) => {
+  switch (message.endpoint) {
+    case Endpoint.BACK_LIGHTS_ARE_ON:
+      return BACK_LEDS.read();
+
+    case Endpoint.BOARD_LIGHTS_ARE_ON:
+      return BOARD_LEDS.read();
+
+    case Endpoint.FRONT_LIGHTS_ARE_ON:
+      return FRONT_LEDS.read();
+
+    case Endpoint.DESKTOP_IS_ON:
+      return DESKTOP.read();
+
+    case Endpoint.FIRST_CURTAIN_IS_OPEN:
+      return PRINCIPAL_CURTAIN.read();
+
+    case Endpoint.SECOND_CURTAIN_IS_OPEN:
+      return SECONDARY_CURTAIN.read();
+
+    case Endpoint.PROJECTOR_IS_ON:
+      return PROJECTOR.read();
+  }
+}
+
 server.on("CHANGE", (message) => {
   changeMessageHandler(message)
     ?.then(() => {
@@ -59,6 +84,13 @@ server.on("CHANGE", (message) => {
       });
     })
     .catch((err) => console.error(err));
+}).on("GET", (message) => {
+  getMessageHandler(message)?.then((value) => {
+    server.emit("GET", {
+      endpoint: message.endpoint,
+      payload: Boolean(value)
+    })
+  }).catch((err) => console.error(err))
 });
 
 server.run();
