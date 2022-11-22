@@ -33,6 +33,9 @@ const changeMessageHandler = (message: IncomingMessage) => {
     case Endpoint.BOARD_LIGHTS_ARE_ON:
       return BOARD_LEDS.write(message.payload);
 
+    case Endpoint.FRONT_LIGHTS_ARE_ON:
+      return FRONT_LEDS.write(message.payload);
+
     case Endpoint.DESKTOP_IS_ON:
       return DESKTOP.write(message.payload);
 
